@@ -6,15 +6,20 @@
       </div>
       <div class="right">
         <div class="rightOne" v-if="isShow">
-          <el-input class="rightInput" placeholder="请输入登陆邮箱："/>
-          <el-input class="rightInput" placeholder="请输登陆密码：" type="password"/>
-          <el-button type="primary" class="btn">登陆</el-button>
+          <el-input class="rightInput" placeholder="请输入登陆邮箱：" v-model="userData.email"/>
+          <el-input class="rightInput"
+                    placeholder="请输登陆密码："
+                    type="password"
+                    @keyup.enter.native="handleToSer"
+                    v-model="userData.password"
+          />
+          <el-button type="primary" class="btn" @click="handleToSer">登陆</el-button>
           <el-button class="btn" @click="handleClickTo">注册</el-button>
         </div>
 
         <div class="rightTwo" v-else>
           <div>
-            <img src="http://img4.imgtn.bdimg.com/it/u=3655061121,1858460693&fm=26&gp=0.jpg" class="img">
+            <img src="" class="img">
           </div>
           <p class="username">用户名</p>
           <el-button type="primary" class="userBtn">登陆</el-button>
@@ -26,7 +31,7 @@
     <div class="book">
 
       <div class="userData">
-        <img class="imgHeader" src="http://img4.imgtn.bdimg.com/it/u=3655061121,1858460693&fm=26&gp=0.jpg">
+        <img class="imgHeader" src="">
         <div class="bookDescribe">
           <div class="userName">
             <span class="saneT1">张三</span>
@@ -57,11 +62,18 @@
     data() {
       return {
         isShow: true,
+        userData: {
+          email: '',
+          password: ''
+        }
       }
     },
-    methods:{
-      handleClickTo(){
+    methods: {
+      handleClickTo() {    // 调转到祖册页
         this.$router.push('/register')
+      },
+      handleToSer() {
+
       }
     }
   }
@@ -143,12 +155,12 @@
         margin-left: 20px;
         position: relative;
         .userName {
-           .saneT1{
-             padding-right: 20px;
-             border-right: 1px solid #000;
-             color: #409eff;
-           }
-          .saneT2{
+          .saneT1 {
+            padding-right: 20px;
+            border-right: 1px solid #000;
+            color: #409eff;
+          }
+          .saneT2 {
             padding-left: 19px;
           }
         }
@@ -161,7 +173,7 @@
           position: absolute;
           left: 0;
           bottom: 0;
-          .sameT{
+          .sameT {
             padding-right: 30px;
             line-height: 25px;
             font-size: 14px;
@@ -169,7 +181,7 @@
         }
       }
     }
-    .bookDetail{
+    .bookDetail {
       margin-top: 10px;
       font-size: 14px;
     }
