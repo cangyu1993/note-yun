@@ -20,16 +20,23 @@
     data(){
       return{
         userData: {
-          username:'cangyu',
-          email:'123456@qq.cpm',
-          password:'123456'
+          username:'',
+          email:'',
+          password:''
         }
       }
     },
     methods:{
       hendleClick(){
         this.$axios.post('/user',this.userData).then(res=>{
-          console.log(res)
+          if(res.code == 200){
+            this.$message.success('注册成功')
+            setTimeout(()=>{
+              this.$router.push('/login')
+            },1000)
+          }else {
+            this.$message.error('缺少必要参数')
+          }
         })
       }
     }

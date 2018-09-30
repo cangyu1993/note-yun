@@ -19,9 +19,9 @@
 
         <div class="rightTwo" v-else>
           <div>
-            <img src="" class="img">
+            <img :src="loginData.avatar" class="img">
           </div>
-          <p class="username">用户名</p>
+          <p class="username">{{this.loginData.username}}</p>
           <el-button type="primary" class="userBtn">登陆</el-button>
         </div>
       </div>
@@ -64,7 +64,12 @@
         isShow: true,
         userData: {
           email: '',
-          password: ''
+          password: '',
+        },
+        loginData: {
+          avatar: '',
+          email: '',
+          username: ''
         }
       }
     },
@@ -73,7 +78,20 @@
         this.$router.push('/register')
       },
       handleToSer() {
-
+        this.$axios.post('login', this.userData).then(res => {
+          console.log(res)
+          if (res.code == 200) {
+            this.$message.success('登陆成功')
+            this.loginData = res.userData
+            setTimeout(() => {
+              this.isShow = false
+            }, 1000)
+          }else {
+            this.$message.error('请核对登陆信息是否正确')
+          }
+        }).catch(err=>{
+          this.$message.error('请求失败')
+        })
       }
     }
   }
