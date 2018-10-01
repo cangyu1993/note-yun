@@ -13,7 +13,7 @@
                     @keyup.enter.native="handleToSer"
                     v-model="userData.password"
           />
-          <el-button type="primary" class="btn" @click="handleToSer" >登陆</el-button>
+          <el-button type="primary" class="btn" @click="handleToSer">登陆</el-button>
           <el-button class="btn" @click="handleClickTo">注册</el-button>
         </div>
 
@@ -66,7 +66,7 @@
           email: '',
           password: '',
         },
-        code:0,
+        code: 0,
         loginData: {
           avatar: '',
           email: '',
@@ -84,27 +84,43 @@
           if (res.code == 200) {
             this.$message.success('登陆成功')
             this.loginData = res.userData
+            this.$store.commit('CHANGE_USERDATA', this.loginData)
             this.code = res.code
+            this.$store.commit('CHANGE_CODE', this.code)
             setTimeout(() => {
               this.isShow = false
             }, 1000)
-          }else {
+          } else {
+            this.code = res.code
+            this.$store.commit('CHANGE_CODE', this.code)
             this.$message.error('请核对登陆信息是否正确')
           }
-        }).catch(err=>{
-          this.code = res.code
+        }).catch(err => {
           this.$message.error('请求失败')
         })
       },
-      userBtn(){
-        this.$axios.post('/outlogin').then(res=>{
+      userBtn() {
+        this.$axios.post('/outlogin').then(res => {
           console.log(res)
           if (res.code == 200) {
-            this.isShow = true
+            this.code = 0
+            this.$store.commit('CHANGE_CODE', this.code)
             this.$message.success(res.msg)
+            this.isShow = true
           }
         })
+      },
+      handleReturn() {
+        if (this.code = 200) {
+          this.isShow = false
+          this.loginData = this.$store.state.userData
+        } else {
+          this.isShow = true
+        }
       }
+    },
+    created() {
+      this.handleReturn()
     }
   }
 </script>

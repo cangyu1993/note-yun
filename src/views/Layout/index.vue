@@ -22,9 +22,13 @@
     name: "index",
     methods:{
       handleClick(){
-          this.$router.push('/takeNotes')
-      }
-    }
+          if(this.$store.state.code&&this.$store.state.code==200){
+            this.$router.push('/takeNotes')
+          }else {
+            this.$message.error('未登录状态不能发布笔记！')
+          }
+      },
+    },
   }
 </script>
 
