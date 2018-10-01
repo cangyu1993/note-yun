@@ -22,7 +22,7 @@
     name: "index",
     methods:{
       handleClick(){
-        this.$router.push('/takeNotes')
+          this.$router.push('/takeNotes')
       }
     }
   }

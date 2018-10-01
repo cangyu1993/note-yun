@@ -13,7 +13,7 @@
                     @keyup.enter.native="handleToSer"
                     v-model="userData.password"
           />
-          <el-button type="primary" class="btn" @click="handleToSer">登陆</el-button>
+          <el-button type="primary" class="btn" @click="handleToSer" >登陆</el-button>
           <el-button class="btn" @click="handleClickTo">注册</el-button>
         </div>
 
@@ -22,7 +22,7 @@
             <img :src="loginData.avatar" class="img">
           </div>
           <p class="username">{{this.loginData.username}}</p>
-          <el-button type="primary" class="userBtn">登陆</el-button>
+          <el-button type="warning" class="userBtn" @click="userBtn">退出登陆</el-button>
         </div>
       </div>
     </div>
@@ -66,6 +66,7 @@
           email: '',
           password: '',
         },
+        code:0,
         loginData: {
           avatar: '',
           email: '',
@@ -83,6 +84,7 @@
           if (res.code == 200) {
             this.$message.success('登陆成功')
             this.loginData = res.userData
+            this.code = res.code
             setTimeout(() => {
               this.isShow = false
             }, 1000)
@@ -90,7 +92,17 @@
             this.$message.error('请核对登陆信息是否正确')
           }
         }).catch(err=>{
+          this.code = res.code
           this.$message.error('请求失败')
+        })
+      },
+      userBtn(){
+        this.$axios.post('/outlogin').then(res=>{
+          console.log(res)
+          if (res.code == 200) {
+            this.isShow = true
+            this.$message.success(res.msg)
+          }
         })
       }
     }
