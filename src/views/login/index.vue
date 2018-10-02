@@ -111,7 +111,8 @@
         })
       },
       handleReturn() {
-        if (this.code = 200) {
+        this.code = this.$store.state.code
+        if (this.code === 200) {
           this.isShow = false
           this.loginData = this.$store.state.userData
         } else {
