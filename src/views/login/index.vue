@@ -35,7 +35,13 @@
         <div class="bookDescribe">
           <div class="userName">
             <span class="saneT1">{{item.author.username}}</span>
-            <span class="saneT2">{{item.title}}</span>
+            <span class="saneT2">
+              <router-link class="linkTo" :to="{name:'article',params:{
+              id: item._id
+              }}">
+                {{item.title}}
+              </router-link>
+            </span>
           </div>
           <div class="bookReply">
             <span class="sameT">浏览：{{item.redNumber}}</span>
@@ -72,7 +78,7 @@
           email: '',
           username: ''
         },
-        bookData:[],
+        bookData: [],
       }
     },
     methods: {
@@ -120,8 +126,8 @@
           this.isShow = true
         }
       },
-      getArticle(){
-        this.$axios.get('/article').then(res=>{
+      getArticle() {
+        this.$axios.get('/article').then(res => {
           // console.log(res)
           this.bookData = res.data
         })
@@ -219,6 +225,13 @@
           }
           .saneT2 {
             padding-left: 19px;
+            .linkTo {
+              text-decoration: none;
+              color: black;
+            }
+            .linkTo:hover {
+              color: red;
+            }
           }
         }
         .bookReply {

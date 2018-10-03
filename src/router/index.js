@@ -9,6 +9,7 @@ const components={
   login:()=>import('@/views/login'),
   register:()=>import('@/views/register'),
   takeNotes:()=>import('@/views/takeNotes'),
+  article:()=>import('@/views/article'),
 };
 
 export default new Router({
@@ -33,6 +34,11 @@ export default new Router({
           path:'takeNotes',
           name:'takeNotes',
           component:components.takeNotes,
+        },,
+        {
+          path:'article/:id',
+          name:'article',
+          component:components.article,
         },
       ]
     }
