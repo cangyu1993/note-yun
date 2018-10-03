@@ -28,24 +28,24 @@
     </div>
     <div class="photoDown"></div>
 
-    <div class="book">
+    <div class="book" v-for="(item,index) in bookData" :key="item.index">
 
       <div class="userData">
-        <img class="imgHeader" src="">
+        <img class="imgHeader" :src=item.author.avatar>
         <div class="bookDescribe">
           <div class="userName">
-            <span class="saneT1">张三</span>
-            <span class="saneT2">vue项目</span>
+            <span class="saneT1">{{item.author.username}}</span>
+            <span class="saneT2">{{item.title}}</span>
           </div>
           <div class="bookReply">
-            <span class="sameT">浏览：6666</span>
-            <span class="sameT">回复：6666</span>
-            <span class="sameT">分类：6666</span>
+            <span class="sameT">浏览：{{item.redNumber}}</span>
+            <span class="sameT">回复：{{item.commonNum}}</span>
+            <span class="sameT">分类：{{item.category}}</span>
           </div>
         </div>
       </div>
 
-      <div class="bookDetail">6666666</div>
+      <div class="bookDetail">{{item.contentText}}</div>
     </div>
 
   </div>
@@ -71,7 +71,8 @@
           avatar: '',
           email: '',
           username: ''
-        }
+        },
+        bookData:[],
       }
     },
     methods: {
@@ -118,10 +119,17 @@
         } else {
           this.isShow = true
         }
+      },
+      getArticle(){
+        this.$axios.get('/article').then(res=>{
+          // console.log(res)
+          this.bookData = res.data
+        })
       }
     },
     created() {
       this.handleReturn()
+      this.getArticle()
     }
   }
 </script>
@@ -190,6 +198,8 @@
     border-radius: 6px;
     padding-top: 10px;
     padding-left: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
     .userData {
       display: flex;
       .imgHeader {

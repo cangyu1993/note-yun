@@ -105,7 +105,17 @@
     methods: {
       handleTo() {
         this.$axios.post('/article', this.formData).then(res => {
-          console.log(res)
+          if (res.code==200){
+            this.$message.success('发布笔记成功')
+            setTimeout(()=>{
+              this.$router.push('/login')
+            })
+          } else {
+            this.$message.error('发布笔记失败')
+          }
+        }).catch(err=>{
+          console.log(this.formData)
+          this.$message.error('请求服务器出错！')
         })
       },
       handleChange({quill, html, text}) {
@@ -121,7 +131,7 @@
       },
       onRadioChange(item) {
         // console.log("item", item);
-        // console.log("category", this.formData.category);
+        // console.log("formData.name", this.formData.category);
       },
       addCategory() {
           this.isShow = true
