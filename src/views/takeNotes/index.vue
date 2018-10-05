@@ -27,6 +27,7 @@
                 v-for="(item,index) in category"
                 :label="item.name"
                 :key="item.name"
+                class="radio-every"
               >
                 {{item.name}}
               </el-radio-button>
